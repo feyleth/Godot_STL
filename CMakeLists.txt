@@ -8,9 +8,19 @@ project(godot)
 #detect platform
 set(target)
 if(NOT DEFINED ${CMAKE_GENERATOR_PLATFORM})
-    if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    # linux
+    if(UNIX AND NOT APPLE)
         set(target "linuxbsd")
     endif()
+    # apple
+    if(APPLE)
+        set(target "osx")
+    endif()
+    # windows
+    if(WIN32)
+        set(target "windows")
+    endif()
+    
 endif()
 
 
@@ -28,6 +38,9 @@ if(target STREQUAL "linuxbsd")
     
 endif()
 
+if(target STREQUAL "osx")
+    add_definitions(-DOSX_ENABLED -DUNIX_ENABLED -DAPPLE_STYLE_KEYS -DCOREAUDIO_ENABLED -DCOREMIDI_ENABLED)
+endif()
 
 
 find_package(Python 3.5 COMPONENTS Interpreter REQUIRED)

@@ -17,10 +17,9 @@ set(cpp)
 
 add_element(alsa header cpp)
 add_element(alsamidi header cpp)
+add_element(coreaudio header cpp)
 
 add_library(${PROJECT_NAME} ${header} ${cpp})
-
-target_link_libraries(${PROJECT_NAME} ALSA)
 
 
 # TODO : remove 
