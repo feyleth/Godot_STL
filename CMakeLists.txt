@@ -22,6 +22,8 @@ if(target STREQUAL "linuxbsd")
     if(ALSA_FOUND)
         message("Enabling ALSA")
         add_definitions(-DALSA_ENABLED -DALSAMIDI_ENABLED)
+    else()
+        message("ALSA libraries not found, disabling driver")
     endif()
     
 endif()

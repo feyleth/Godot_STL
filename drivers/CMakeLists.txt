@@ -16,6 +16,7 @@ set(header)
 set(cpp)
 
 add_element(alsa header cpp)
+add_element(alsamidi header cpp)
 
 add_library(${PROJECT_NAME} ${header} ${cpp})
 
