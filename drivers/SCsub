@@ -5,34 +5,34 @@ Import("env")
 env.drivers_sources = []
 
 # OS drivers
-SConscript("unix/SCsub")
-SConscript("windows/SCsub")
+SConscript("unix/SCsub") # ok
+SConscript("windows/SCsub") # ok
 
 # Sounds drivers
-SConscript("alsa/SCsub")
-SConscript("coreaudio/SCsub")
-SConscript("pulseaudio/SCsub")
+SConscript("alsa/SCsub") # ok
+SConscript("coreaudio/SCsub") # ok
+SConscript("pulseaudio/SCsub") # ok
 if env["platform"] == "windows":
-    SConscript("wasapi/SCsub")
+    SConscript("wasapi/SCsub") # ok
 if env["xaudio2"]:
-    SConscript("xaudio2/SCsub")
+    SConscript("xaudio2/SCsub")  # a voir flag + link
 
 # Midi drivers
-SConscript("alsamidi/SCsub")
-SConscript("coremidi/SCsub")
-SConscript("winmidi/SCsub")
+SConscript("alsamidi/SCsub") # ok
+SConscript("coremidi/SCsub") # ok
+SConscript("winmidi/SCsub") # ok
 
 # Graphics drivers
 if env["platform"] != "server" and env["platform"] != "javascript":
     #    SConscript('gles2/SCsub')
-    SConscript("vulkan/SCsub")
-    SConscript("gl_context/SCsub")
+    SConscript("vulkan/SCsub") # a voir bordel
+    SConscript("gl_context/SCsub") # a voir bordel
 else:
-    SConscript("dummy/SCsub")
+    SConscript("dummy/SCsub") # ok
 
 # Core dependencies
-SConscript("png/SCsub")
-SConscript("spirv-reflect/SCsub")
+SConscript("png/SCsub") # a voir bordel
+SConscript("spirv-reflect/SCsub") # a voir bordel
 
 if env["vsproj"]:
     import os
