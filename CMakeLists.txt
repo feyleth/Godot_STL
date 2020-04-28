@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_CXX_STANDARD 17)
 
 project(godot)
@@ -26,6 +26,14 @@ endif()
 
 
 #set argument for platform
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        add_definitions(-DDEBUG_ENABLED)
+        add_link_options(-rdynamic)
+endif()
+if(CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    add_definitions(-DDEBUG_MEMORY_ENABLED)
+endif()
+
 
 if(target STREQUAL "linuxbsd")
     find_package(ALSA)
@@ -35,7 +43,38 @@ if(target STREQUAL "linuxbsd")
     else()
         message("ALSA libraries not found, disabling driver")
     endif()
+
+    find_package(PulseAudio)
+    if(PulseAudio_FOUND)
+        message("Enabling PulseAudio")
+        add_definitions(-DPULSEAUDIO_ENABLED)
+    else()
+        message("PulseAudio development libraries not found, disabling driver")
+    endif()
     
+    find_package(Udev)
+    if(PulseAudio_FOUND)
+        message("Enabling udev support")
+        add_definitions(-DUDEV_ENABLED)
+    else()
+        message("libudev development libraries not found, disabling udev support")
+    endif()
+
+    find_package(X11 REQUIRED)
+
+    # TODO: see for cmake
+    # env.ParseConfig("pkg-config xcursor --cflags --libs")
+    # env.ParseConfig("pkg-config xinerama --cflags --libs")
+    # env.ParseConfig("pkg-config xrandr --cflags --libs")
+    # env.ParseConfig("pkg-config xrender --cflags --libs")
+    # env.ParseConfig("pkg-config xi --cflags --libs")
+
+    # TODO: only lvm test gcc
+    #add_definitions(-DTYPED_METHOD_BIND)
+
+    add_definitions(-DJOYDEV_ENABLED)
+    add_definitions(-DX11_ENABLED -DUNIX_ENABLED)
+    add_definitions(-DVULKAN_ENABLED)
 endif()
 
 if(target STREQUAL "osx")
