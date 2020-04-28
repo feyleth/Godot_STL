@@ -103,4 +103,6 @@ execute_process(COMMAND ${Python_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/script
 # )
 # add_custom_target(binding DEPENDS "core/method_bind.gen.inc" "core/method_bind_ext.gen.inc" "core/method_bind_free_func.gen.inc")
 
+add_subdirectory(thirdparty)
+
 add_subdirectory(drivers)

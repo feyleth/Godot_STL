@@ -27,3 +27,11 @@ add_library(${PROJECT_NAME} ${header} ${cpp})
 # alsa : #include "core/os/mutex.h"
 target_include_directories(${PROJECT_NAME} PRIVATE "../")
 target_include_directories(${PROJECT_NAME} PRIVATE "../platform/${target}")
+
+
+#gl_context
+set(list "haiku" "osx" "windows" "linuxbsd")
+list(FIND list ${target} res)
+if(NOT ${res} EQUAL -1)
+    target_link_libraries(${PROJECT_NAME} PUBLIC glad)
+endif()
