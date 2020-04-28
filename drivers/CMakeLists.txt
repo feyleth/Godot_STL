@@ -49,6 +49,8 @@ set(gen)
 add_element(png header cpp)
 add_element(pulseaudio header cpp)
 
+add_element(unix header cpp)
+
 add_library(${PROJECT_NAME} ${header} ${cpp} ${gen})
 
 

@@ -108,6 +108,12 @@ if(target STREQUAL "Android")
 endif()
 
 
+
+find_file(file mntent.h)
+if( NOT file-NOTFOUND)
+    add_definitions(-DHAVE_MNTENT)
+endif()
+
 execute_process(COMMAND ${Python_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/script/make_binders.py"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/script"
 )
