@@ -50,11 +50,8 @@ add_element(png header cpp)
 add_element(pulseaudio header cpp)
 add_element(unix header cpp)
 add_element(vulkan header cpp)
-
-if(target STREQUAL "windows")
-    add_element(wasapi header cpp)
-endif()
-
+add_element(wasapi header cpp)
+add_element(windows header cpp)
 
 #TODO: remove this
 #not work
