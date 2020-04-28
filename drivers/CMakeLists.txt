@@ -51,6 +51,11 @@ add_element(pulseaudio header cpp)
 add_element(unix header cpp)
 add_element(vulkan header cpp)
 
+if(target STREQUAL "windows")
+    add_element(wasapi header cpp)
+endif()
+
+
 #TODO: remove this
 #not work
 #generatVersion(versionfile)
