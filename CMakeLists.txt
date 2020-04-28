@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.5)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(Python 3.5 COMPONENTS Interpreter REQUIRED)
+
+include(cmake/compilegles.cmake)
+
 project(godot)
 
 #detect platform
@@ -89,9 +93,6 @@ endif()
 if(target STREQUAL "osx")
     add_definitions(-DOSX_ENABLED -DUNIX_ENABLED -DAPPLE_STYLE_KEYS -DCOREAUDIO_ENABLED -DCOREMIDI_ENABLED)
 endif()
-
-
-find_package(Python 3.5 COMPONENTS Interpreter REQUIRED)
 
 execute_process(COMMAND ${Python_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/script/make_binders.py"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/script"

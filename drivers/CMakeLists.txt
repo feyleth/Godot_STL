@@ -20,7 +20,30 @@ add_element(alsamidi header cpp)
 add_element(coreaudio header cpp)
 add_element(dummy header cpp)
 
-add_library(${PROJECT_NAME} ${header} ${cpp})
+
+# TODO: implement
+set(gen)
+# add_element(gles2 header cpp)
+# compilegles("gles2/shaders/copy" gen)
+# # compilegles("gles2/shaders/resolve" gen)
+# compilegles("gles2/shaders/canvas" gen)
+# compilegles("gles2/shaders/canvas_shadow" gen)
+# compilegles("gles2/shaders/scene" gen)
+# compilegles("gles2/shaders/cubemap_filter" gen)
+# compilegles("gles2/shaders/cube_to_dp" gen)
+# # compilegles("gles2/shaders/blend_shape" gen)
+# # compilegles("gles2/shaders/screen_space_reflection" gen)
+# compilegles("gles2/shaders/effect_blur" gen)
+# # compilegles("gles2/shaders/subsurf_scattering" gen)
+# # compilegles("gles2/shaders/ssao" gen)
+# # compilegles("gles2/shaders/ssao_minify" gen)
+# # compilegles("gles2/shaders/ssao_blur" gen)
+# # compilegles("gles2/shaders/exposure" gen)
+# compilegles("gles2/shaders/tonemap" gen)
+# # compilegles("gles2/shaders/particles" gen)
+# compilegles("gles2/shaders/lens_distorted" gen)
+
+add_library(${PROJECT_NAME} ${header} ${cpp} ${gen})
 
 
 # TODO : remove 
