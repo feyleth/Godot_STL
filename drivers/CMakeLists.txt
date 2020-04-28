@@ -43,6 +43,7 @@ set(gen)
 # compilegles("gles2/shaders/lens_distorted" gen)
 
 add_element(png header cpp)
+add_element(pulseaudio header cpp)
 
 add_library(${PROJECT_NAME} ${header} ${cpp} ${gen})
 
