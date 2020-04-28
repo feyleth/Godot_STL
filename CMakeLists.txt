@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(Python 3.5 COMPONENTS Interpreter REQUIRED)
 
 include(cmake/compilegles.cmake)
+include(cmake/generatVersion.cmake)
 
 project(godot)
 
@@ -119,8 +120,8 @@ execute_process(COMMAND ${Python_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/script
 )
 # TODO: not working 
 # add_custom_command(OUTPUT "core/method_bind.gen.inc" "core/method_bind_ext.gen.inc" "core/method_bind_free_func.gen.inc"
-#     COMMAND ${Python_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/script/make_binders.py"
-#     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/script"
+#     COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/make_binders.py"
+#     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/script"
 # )
 # add_custom_target(binding DEPENDS "core/method_bind.gen.inc" "core/method_bind_ext.gen.inc" "core/method_bind_free_func.gen.inc")
 

@@ -48,10 +48,21 @@ set(gen)
 
 add_element(png header cpp)
 add_element(pulseaudio header cpp)
-
 add_element(unix header cpp)
+add_element(vulkan header cpp)
 
-add_library(${PROJECT_NAME} ${header} ${cpp} ${gen})
+#TODO: remove this
+#not work
+#generatVersion(versionfile)
+# but this yes
+set(versionfile "${CMAKE_SOURCE_DIR}/core/version_generated.gen.h")
+add_custom_command(OUTPUT ${versionfile}
+    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_version.py"
+    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+    DEPENDS "${CMAKE_SOURCE_DIR}/script/generat_version.py"
+)
+
+add_library(${PROJECT_NAME} ${header} ${cpp} ${gen} ${versionfile})
 
 
 # TODO : remove 
@@ -71,3 +82,5 @@ endif()
 target_link_libraries(${PROJECT_NAME} PUBLIC png)
 #spirv-reflect
 target_link_libraries(${PROJECT_NAME} PUBLIC spirv-reflect)
+#vulkan
+target_link_libraries(${PROJECT_NAME} PUBLIC vulkan)
