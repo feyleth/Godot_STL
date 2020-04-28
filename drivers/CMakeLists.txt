@@ -63,3 +63,5 @@ endif()
 
 # libpng
 target_link_libraries(${PROJECT_NAME} PUBLIC png)
+#spirv-reflect
+target_link_libraries(${PROJECT_NAME} PUBLIC spirv-reflect)
