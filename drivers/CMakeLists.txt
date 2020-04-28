@@ -53,6 +53,10 @@ add_element(vulkan header cpp)
 add_element(wasapi header cpp)
 add_element(windows header cpp)
 add_element(winmidi header cpp)
+if(target STREQUAL "uwp")
+    add_element(xaudio2 header cpp)
+endif()
+
 
 #TODO: remove this
 #not work
@@ -87,3 +91,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC png)
 target_link_libraries(${PROJECT_NAME} PUBLIC spirv-reflect)
 #vulkan
 target_link_libraries(${PROJECT_NAME} PUBLIC vulkan)
+
+if(target STREQUAL "uwp")
+    #TODO : need to test
+    target_link_libraries(${PROJECT_NAME} PUBLIC "xaudio2_8.lib")
+    target_compile_options(${PROJECT_NAME} PUBLIC -DXAUDIO2_ENABLED)
+endif()
