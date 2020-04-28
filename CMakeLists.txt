@@ -36,6 +36,9 @@ endif()
 
 
 if(target STREQUAL "linuxbsd")
+
+    option(touch "Enable touch events" ON)
+
     find_package(ALSA)
     if(ALSA_FOUND)
         message("Enabling ALSA")
@@ -68,9 +71,15 @@ if(target STREQUAL "linuxbsd")
     # env.ParseConfig("pkg-config xrandr --cflags --libs")
     # env.ParseConfig("pkg-config xrender --cflags --libs")
     # env.ParseConfig("pkg-config xi --cflags --libs")
+    # env.Append(CPPDEFINES=['OPENGL_ENABLED'])
 
     # TODO: only lvm test gcc
     #add_definitions(-DTYPED_METHOD_BIND)
+
+    if(touch)
+        add_definitions(-DTOUCH_ENABLED)
+    endif()
+    
 
     add_definitions(-DJOYDEV_ENABLED)
     add_definitions(-DX11_ENABLED -DUNIX_ENABLED)
