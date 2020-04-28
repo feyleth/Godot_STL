@@ -20,7 +20,6 @@ add_element(alsamidi header cpp)
 add_element(coreaudio header cpp)
 add_element(dummy header cpp)
 
-
 # TODO: implement
 set(gen)
 # add_element(gles2 header cpp)
@@ -43,6 +42,8 @@ set(gen)
 # # compilegles("gles2/shaders/particles" gen)
 # compilegles("gles2/shaders/lens_distorted" gen)
 
+add_element(png header cpp)
+
 add_library(${PROJECT_NAME} ${header} ${cpp} ${gen})
 
 
@@ -58,3 +59,6 @@ list(FIND list ${target} res)
 if(NOT ${res} EQUAL -1)
     target_link_libraries(${PROJECT_NAME} PUBLIC glad)
 endif()
+
+# libpng
+target_link_libraries(${PROJECT_NAME} PUBLIC png)

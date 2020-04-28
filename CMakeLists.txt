@@ -94,6 +94,20 @@ if(target STREQUAL "osx")
     add_definitions(-DOSX_ENABLED -DUNIX_ENABLED -DAPPLE_STYLE_KEYS -DCOREAUDIO_ENABLED -DCOREMIDI_ENABLED)
 endif()
 
+if(target STREQUAL "Android")
+    option(android_neon "Enable NEON support (armv7 only)" True)
+
+    set(android_arch "armv7" CACHE STRING "Target architecture")
+    set_property(CACHE android_arch PROPERTY STRINGS "armv7" "arm64v8" "x86" "x86_64")
+    
+    set(use_neon OFF)
+    if(android_arch STREQUAL "armv7")
+        set(use_neon android_neon)
+    endif()
+    
+endif()
+
+
 execute_process(COMMAND ${Python_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/script/make_binders.py"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/script"
 )
