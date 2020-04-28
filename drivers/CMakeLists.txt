@@ -52,6 +52,7 @@ add_element(unix header cpp)
 add_element(vulkan header cpp)
 add_element(wasapi header cpp)
 add_element(windows header cpp)
+add_element(winmidi header cpp)
 
 #TODO: remove this
 #not work
