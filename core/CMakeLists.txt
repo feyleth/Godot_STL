@@ -59,6 +59,20 @@ add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/license.gen.h"
 )
 list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/license.gen.h")
 
+
+set(mappings "${CMAKE_CURRENT_SOURCE_DIR}/input/gamecontrollerdb_204.txt"
+    "${CMAKE_CURRENT_SOURCE_DIR}/input/gamecontrollerdb_205.txt"
+    "${CMAKE_CURRENT_SOURCE_DIR}/input/gamecontrollerdb.txt" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/input/godotcontrollerdb.txt")
+
+add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/input/default_controller_mappings.gen.cpp"
+    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_default_controller_mappings.py"
+    "${CMAKE_CURRENT_SOURCE_DIR}/input/default_controller_mappings.gen.cpp"
+    "\"${mappings}\""
+    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/core/input"
+)
+list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/input/default_controller_mappings.gen.cpp")
+
 add_library(${PROJECT_NAME} ${generateFile})
 
 # TODO: suppress

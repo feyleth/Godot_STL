@@ -3,12 +3,10 @@
 All such functions are invoked in a subprocess on Windows to prevent build flakiness.
 """
 
-from platform_methods import subprocess_main
 from collections import OrderedDict
 
-
-def make_default_controller_mappings(target, source, env):
-    dst = target[0]
+def make_default_controller_mappings(target, source):
+    dst = target
     g = open(dst, "w")
 
     g.write("/* THIS FILE IS GENERATED DO NOT EDIT */\n")
@@ -76,6 +74,12 @@ def make_default_controller_mappings(target, source, env):
     g.write("\tnullptr\n};\n")
     g.close()
 
+import sys
+import json
 
 if __name__ == "__main__":
-    subprocess_main(globals())
+    if len(sys.argv) < 3:
+        print("usage : " + sys.argv[0] + " <destination> <sources>")
+        exit()
+    jsonstring = "[\"" + sys.argv[2].replace(";","\",\"") + "\"]"
+    make_default_controller_mappings(sys.argv[1],json.loads(jsonstring))
