@@ -12,6 +12,20 @@ add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/script_encryption_key.gen
 )
 list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/script_encryption_key.gen.cpp")
 
+
+option(builtin_certs "Use the built-in SSL certificates bundles" ON)
+set(system_certs_path "" CACHE STRING "Use this path as SSL certificates default for editor (for package maintainers)")
+add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/io/certs_compressed.gen.h"
+    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_certs_header.py"
+    "${CMAKE_CURRENT_SOURCE_DIR}/io/certs_compressed.gen.h"
+    "../thirdparty/certs/ca-certificates.crt"
+    " ${system_certs_path}"
+    "${builtin_certs}"
+    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/core"
+    DEPENDS "../thirdparty/certs/ca-certificates.crt"
+)
+list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/io/certs_compressed.gen.h")
+
 add_library(${PROJECT_NAME} ${generateFile})
 
 # TODO: suppress
