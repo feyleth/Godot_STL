@@ -12,10 +12,6 @@ env.core_sources = []
 env.add_source_files(env.core_sources, "*.cpp")
 
 
-# Authors
-env.Depends("#core/authors.gen.h", "../AUTHORS.md")
-env.CommandNoCache("#core/authors.gen.h", "../AUTHORS.md", run_in_subprocess(core_builders.make_authors_header))
-
 # Donors
 env.Depends("#core/donors.gen.h", "../DONORS.md")
 env.CommandNoCache("#core/donors.gen.h", "../DONORS.md", run_in_subprocess(core_builders.make_donors_header))

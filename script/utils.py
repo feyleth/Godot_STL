@@ -1,3 +1,7 @@
+"""Functions used to generate source files during build time
+
+All such functions are invoked in a subprocess on Windows to prevent build flakiness.
+"""
 def escape_string(s):
     def charcode_to_c_escapes(c):
         rev_result = []
