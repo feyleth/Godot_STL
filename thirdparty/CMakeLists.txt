@@ -7,6 +7,6 @@ add_subdirectory(spirv-reflect)
 add_subdirectory(vulkan)
 add_subdirectory(misc)
 add_subdirectory(zlib)
-
+add_subdirectory(minizip)
 
 remove_definitions(-w)
