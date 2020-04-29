@@ -1,60 +1,7 @@
-def make_donors_header(target, source, env):
-    sections = [
-        "Platinum sponsors",
-        "Gold sponsors",
-        "Mini sponsors",
-        "Gold donors",
-        "Silver donors",
-        "Bronze donors",
-    ]
-    sections_id = [
-        "DONORS_SPONSOR_PLAT",
-        "DONORS_SPONSOR_GOLD",
-        "DONORS_SPONSOR_MINI",
-        "DONORS_GOLD",
-        "DONORS_SILVER",
-        "DONORS_BRONZE",
-    ]
+import utils
 
-    src = source[0]
-    dst = target[0]
-    f = open(src, "r", encoding="utf-8")
-    g = open(dst, "w", encoding="utf-8")
-
-    g.write("/* THIS FILE IS GENERATED DO NOT EDIT */\n")
-    g.write("#ifndef DONORS_GEN_H\n")
-    g.write("#define DONORS_GEN_H\n")
-
-    reading = False
-
-    def close_section():
-        g.write("\t0\n")
-        g.write("};\n")
-
-    for line in f:
-        if reading make_certs_headering:
-                close_section()
-                reading = False
-            for section, section_id in zip(sections, sections_id):
-                if line.strip().endswith(section):
-                    current_section = escape_string(section_id)
-                    reading = True
-                    g.write("const char *const " + current_section + "[] = {\n")
-                    break
-
-    if reading:
-        close_section()
-
-    g.write("#endif // DONORS_GEN_H\n")
-
-    g.close()
-    f.close()
-
-
-def make_license_header(target, source, env):
-    src_copyright = source[0]
-    src_license = source[1]
-    dst = target[0]
+def make_license_header(target, src_copyright, src_license):
+    dst = target
 
     class LicenseReader:
         def __init__(self, license_file):
@@ -121,7 +68,7 @@ def make_license_header(target, source, env):
 
         with open(src_license, "r", encoding="utf-8") as license_file:
             for line in license_file:
-                escaped_string = escape_string(line.strip())
+                escaped_string = utils.escape_string(line.strip())
                 f.write('\n\t\t"' + escaped_string + '\\n"')
         f.write(";\n\n")
 
@@ -145,7 +92,7 @@ def make_license_header(target, source, env):
 
         f.write("const char *const COPYRIGHT_INFO_DATA[] = {\n")
         for line in data_list:
-            f.write('\t"' + escape_string(line) + '",\n')
+            f.write('\t"' + utils.escape_string(line) + '",\n')
         f.write("};\n\n")
 
         f.write("const ComponentCopyrightPart COPYRIGHT_PROJECT_PARTS[] = {\n")
@@ -156,7 +103,7 @@ def make_license_header(target, source, env):
             for part in project:
                 f.write(
                     '\t{ "'
-                    + escape_string(part["License"][0])
+                    + utils.escape_string(part["License"][0])
                     + '", '
                     + "&COPYRIGHT_INFO_DATA["
                     + str(part["file_index"])
@@ -178,7 +125,7 @@ def make_license_header(target, source, env):
         for project_name, project in iter(projects.items()):
             f.write(
                 '\t{ "'
-                + escape_string(project_name)
+                + utils.escape_string(project_name)
                 + '", '
                 + "&COPYRIGHT_PROJECT_PARTS["
                 + str(part_indexes[project_name])
@@ -192,7 +139,7 @@ def make_license_header(target, source, env):
 
         f.write("const char *const LICENSE_NAMES[] = {\n")
         for l in license_list:
-            f.write('\t"' + escape_string(l[0]) + '",\n')
+            f.write('\t"' + utils.escape_string(l[0]) + '",\n')
         f.write("};\n\n")
 
         f.write("const char *const LICENSE_BODIES[] = {\n\n")
@@ -201,12 +148,16 @@ def make_license_header(target, source, env):
                 if line == ".":
                     f.write('\t"\\n"\n')
                 else:
-                    f.write('\t"' + escape_string(line) + '\\n"\n')
+                    f.write('\t"' + utils.escape_string(line) + '\\n"\n')
             f.write('\t"",\n\n')
         f.write("};\n\n")
 
         f.write("#endif // LICENSE_GEN_H\n")
 
+import sys
 
 if __name__ == "__main__":
-    pass
+    if len(sys.argv) < 4:
+        print("usage : " + sys.argv[0] + " <destination> <copyright> <license>")
+        exit()
+    make_license_header(sys.argv[1],sys.argv[2],sys.argv[3])

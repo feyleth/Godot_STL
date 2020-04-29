@@ -26,7 +26,7 @@ add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/io/certs_compressed.gen.h
 )
 list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/io/certs_compressed.gen.h")
 
-# method_bind
+# TODO: put method_bind in this
 
 add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/authors.gen.h"
     COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_authors_header.py"
@@ -46,6 +46,18 @@ add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/donors.gen.h"
     DEPENDS "${CMAKE_SOURCE_DIR}/DONORS.md"
 )
 list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/donors.gen.h")
+
+
+add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/license.gen.h"
+    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_authors_header.py"
+    "${CMAKE_CURRENT_SOURCE_DIR}/license.gen.h"
+    "${CMAKE_SOURCE_DIR}/COPYRIGHT.txt"
+    "${CMAKE_SOURCE_DIR}/LICENSE.txt"
+    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/core"
+    DEPENDS "${CMAKE_SOURCE_DIR}/COPYRIGHT.txt"
+    "${CMAKE_SOURCE_DIR}/LICENSE.txt"
+)
+list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/license.gen.h")
 
 add_library(${PROJECT_NAME} ${generateFile})
 
