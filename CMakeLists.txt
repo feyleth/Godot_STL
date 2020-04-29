@@ -128,3 +128,4 @@ execute_process(COMMAND ${Python_EXECUTABLE} "${CMAKE_CURRENT_SOURCE_DIR}/script
 add_subdirectory(thirdparty)
 
 add_subdirectory(drivers)
+add_subdirectory(core)
