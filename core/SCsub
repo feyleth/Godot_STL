@@ -18,13 +18,13 @@ env.CommandNoCache(
 )
 
 # Chain load SCsubs
-SConscript("os/SCsub")
-SConscript("math/SCsub")
-SConscript("crypto/SCsub")
-SConscript("io/SCsub")
-SConscript("debugger/SCsub")
-SConscript("input/SCsub")
-SConscript("bind/SCsub")
+SConscript("os/SCsub") # ok
+SConscript("math/SCsub") # ok
+SConscript("crypto/SCsub") # pas fun
+SConscript("io/SCsub") # ok
+SConscript("debugger/SCsub") # ok
+SConscript("input/SCsub") # pas fun
+SConscript("bind/SCsub") # OK
 
 
 # Build it all as a library

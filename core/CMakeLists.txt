@@ -69,4 +69,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE misc)
 target_link_libraries(${PROJECT_NAME} PRIVATE zlib)
 target_link_libraries(${PROJECT_NAME} PRIVATE minizip)
 target_link_libraries(${PROJECT_NAME} PRIVATE zstd)
-
+target_link_libraries(${PROJECT_NAME} PRIVATE mbedtls)
