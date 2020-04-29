@@ -39,7 +39,7 @@ list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/authors.gen.h")
 
 
 add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/donors.gen.h"
-    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_authors_header.py"
+    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_donors_header.py"
     "${CMAKE_CURRENT_SOURCE_DIR}/donors.gen.h"
     "${CMAKE_SOURCE_DIR}/DONORS.md"
     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/core"
@@ -49,7 +49,7 @@ list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/donors.gen.h")
 
 
 add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/license.gen.h"
-    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_authors_header.py"
+    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_license_header.py"
     "${CMAKE_CURRENT_SOURCE_DIR}/license.gen.h"
     "${CMAKE_SOURCE_DIR}/COPYRIGHT.txt"
     "${CMAKE_SOURCE_DIR}/LICENSE.txt"
@@ -73,7 +73,18 @@ add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/input/default_controller_
 )
 list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/input/default_controller_mappings.gen.cpp")
 
-add_library(${PROJECT_NAME} ${generateFile})
+
+add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/version_hash.gen.h" "${CMAKE_CURRENT_SOURCE_DIR}/version_generated.gen.h"
+    COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/script/generat_version.py"
+    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+    DEPENDS "${CMAKE_SOURCE_DIR}/script/generat_version.py"
+)
+list(APPEND generateFile "${CMAKE_CURRENT_SOURCE_DIR}/version_hash.gen.h" "${CMAKE_CURRENT_SOURCE_DIR}/version_generated.gen.h")
+
+file(GLOB_RECURSE header "*.h")
+file(GLOB_RECURSE cpp "*.cpp")
+
+add_library(${PROJECT_NAME} ${generateFile} ${header} ${cpp})
 
 # TODO: suppress
 target_include_directories(${PROJECT_NAME} PRIVATE "../")
