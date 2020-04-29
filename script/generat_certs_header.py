@@ -33,7 +33,6 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) < 5:
-        print(len(sys.argv))
         print("usage : " + sys.argv[0] + " <destination> <source> <system_certs_path> <builtin_certs>")
         exit()
     make_certs_header(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4] == "ON")
