@@ -34,6 +34,7 @@
 #include "core/print_string.h"
 
 #include <string.h>
+#include <vector>
 
 RES ResourceFormatDummyTexture::load(const String &p_path, const String &p_original_path, Error *r_error, bool p_use_sub_threads, float *r_progress) {
 	unsigned int width = 8;
@@ -43,7 +44,7 @@ RES ResourceFormatDummyTexture::load(const String &p_path, const String &p_origi
 	Image::Format fmt = Image::FORMAT_RGB8;
 	int rowsize = 3 * width;
 
-	Vector<uint8_t> dstbuff;
+	std::vector<uint8_t> dstbuff;
 
 	dstbuff.resize(rowsize * height);
 
