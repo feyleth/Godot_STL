@@ -1,8 +1,8 @@
-if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" OR ${tools})
+# if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" OR ${tools})
     add_definitions(-DDEBUG_ENABLED)
     add_definitions(-DDEBUG_MEMORY_ENABLED)
     add_definitions(-DD3D_DEBUG_INFO)
-endif()
+# endif()
 
 
 add_definitions(-DWINDOWS_ENABLED -DOPENGL_ENABLED -DWASAPI_ENABLED -DWINMIDI_ENABLED)
