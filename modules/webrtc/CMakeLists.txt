@@ -8,6 +8,7 @@ add_library(${PROJECT_NAME} ${header} ${cpp})
 
 if(module_gdnative)
     target_compile_definitions(${PROJECT_NAME} PRIVATE -DWEBRTC_GDNATIVE_ENABLED)
+    add_dependencies(${PROJECT_NAME} module_gdnative)
 endif()
 
 
